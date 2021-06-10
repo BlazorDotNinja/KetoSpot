@@ -1,0 +1,95 @@
+@page "/category/{categoryId}"
+@inherits BlazorNinjaComponent
+@layout UserContextLayout
+@attribute [UserContextRequired]
+
+<div class="blazor-ninja-page">
+	@if (_items == null)
+	{
+		<div class="blazor-ninja-flashing"></div>
+	}
+	else
+	{
+		<div class="menu-items">
+			@foreach (var item in _items)
+			{
+				<DataView NamespaceLabel="MenuItem"
+				          Item=@item
+				          FieldGroups="@GetFieldGroups()"
+				          ReferenceValueCallback="GetReferenceValueAsync">
+				</DataView>
+			}
+		</div>
+	}
+</div>
+
+@code
+{
+	[Parameter]
+	public string CategoryId { get; set; }
+
+	private List<MenuItem> _items;
+
+	private GenericIdDataObject _category;
+
+	protected override async Task OnInitializedAsync()
+	{
+		await base.OnInitializedAsync();
+
+		var token = await GetContextTokenAsync();
+
+		var itemProxy = ProxyFactory.GetDataProxy<MenuItem>(token);
+
+		var page = await itemProxy.GetPageAsync(
+			Builders<MenuItem>.Filter.Eq(it => it.MenuItemCategoryId, CategoryId),
+			0,
+			int.MaxValue,
+			SortOrder<MenuItem>.Empty);
+
+		_items = page.Items;
+
+		var categoryProxy = ProxyFactory.GetDataProxyForNamespace<GenericIdDataObject>(token, "MenuItemCategory");
+
+		_category = await categoryProxy.GetAsync(CategoryId);
+	}
+
+	private List<FieldGroup> GetFieldGroups()
+	{
+		var groups = new List<FieldGroup>();
+
+		var group = new FieldGroup
+		{
+			Label = "Photo",
+			FieldLabels = new List<string> { "PhotoUrl" }
+		};
+
+		groups.Add(group);
+
+		group = new FieldGroup
+		{
+			Label = "Data",
+			FieldLabels = new List<string> { "Label", "Carbs", "KCalories", "Price" }
+		};
+		groups.Add(group);
+
+		group = new FieldGroup
+		{
+			Label = "Description",
+			FieldLabels = new List<string> { "Description" }
+		};
+		groups.Add(group);
+
+		return groups;
+	}
+
+	private async Task<GenericIdDataObject> GetReferenceValueAsync(
+		string fieldLabel,
+		string id)
+	{
+		await Task.Delay(0);
+
+		if (fieldLabel == "MenuItemCategoryId") return _category;
+
+		throw new NotImplementedException();
+	}
+}

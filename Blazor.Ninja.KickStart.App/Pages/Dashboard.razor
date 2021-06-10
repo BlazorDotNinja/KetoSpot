@@ -1,0 +1,42 @@
+@page "/dashboard"
+@inherits BlazorNinjaComponent
+@layout UserContextLayout
+@attribute [UserContextRequired]
+
+<div class="blazor-ninja-page">
+	@if (_categories == null)
+	{
+		<div class="blazor-ninja-flashing"></div>
+	}
+	else
+	{
+		<div class="blazor-ninja-form-container dashboard">
+			@foreach (var category in _categories)
+			{
+				<a href="/category/@category.Id" target="_blanks">@category.Label</a>
+			}
+		</div>
+	}
+</div>
+
+@code
+{
+	private List<MenuItemCategory> _categories;
+
+	protected override async Task OnInitializedAsync()
+	{
+		await base.OnInitializedAsync();
+
+		var token = await GetContextTokenAsync();
+
+		var proxy = ProxyFactory.GetDataProxy<MenuItemCategory>(token);
+
+		var page = await proxy.GetPageAsync(
+			Filter<MenuItemCategory>.Empty,
+			0,
+			int.MaxValue,
+			SortOrder<MenuItemCategory>.Empty);
+
+		_categories = page.Items;
+	}
+}

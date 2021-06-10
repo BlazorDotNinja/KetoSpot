@@ -1,0 +1,52 @@
+@page "/menu"
+@using System.Runtime.CompilerServices
+@inherits BlazorNinjaComponent
+@layout UserContextLayout
+
+<div class="blazor-ninja-page menu-page">
+	<a href="/profile">
+		<i class="fa fa-user"></i>
+		Profile
+	</a>
+	<a href="/invite">
+		<i class="fa fa-share-alt"></i>
+		Invite friends
+	</a>
+	@if (_roles != null && _roles.Exists(it => it.RoleLabel == "SuperUser"))
+	{
+		<a href="/admin/dashboard">
+			<i class="fa fa-database"></i>
+			Manage
+		</a>
+	}
+	<a href="/theme">
+		<i class="fa fa-adjust"></i>
+		Theme
+	</a>
+	<a href="/issue">
+		<i class="fa fa-bug"></i>
+		Report an issue
+	</a>
+	<a href="/logout">
+		<i class="fa fa-meh-o"></i>
+		Log out
+	</a>
+</div>
+
+@code{
+	private List<UserRole> _roles;
+
+	protected override async Task OnInitializedAsync()
+	{
+		await base.OnInitializedAsync();
+
+		var token = await GetContextTokenAsync();
+
+		var proxy = ProxyFactory.GetUserProxy<User>(token);
+
+		var user = await proxy.GetAsync();
+
+		_roles = await proxy.GetRolesAsync(user.Id);
+	}
+
+}

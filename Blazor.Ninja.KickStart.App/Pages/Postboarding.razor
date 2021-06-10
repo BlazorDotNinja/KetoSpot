@@ -1,0 +1,28 @@
+@page "/postboarding"
+@inherits BlazorNinjaComponent
+@layout UserContextLayout
+@attribute [UserContextRequired]
+
+<div class="blazor-ninja-page">
+	<PostboardingForm Done=@OnDone></PostboardingForm>
+</div>
+
+@code{
+
+	private void OnDone(bool wasUserInputNeeded)
+	{
+		var uri = "/";
+
+		var values = new Dictionary<string, object>
+	{
+			{ "header", "Loading" },
+			{ "text", "Thanks for completing your profile! We're now loading the home view for you." },
+			{ "wasUserInputNeeded", wasUserInputNeeded }
+		};
+
+		uri = NavigationManager.AddQueryStringParams(uri, values);
+
+		NavigationManager.NavigateTo(uri);
+	}
+}
+

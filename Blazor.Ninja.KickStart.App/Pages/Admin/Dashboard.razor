@@ -1,0 +1,11 @@
+@page "/admin/dashboard"
+@inherits BlazorNinjaComponent
+@layout UserContextLayout
+@attribute [UserContextRequired]
+
+<div class="blazor-ninja-page">
+	<div class="blazor-ninja-form-container dashboard">
+		<a href="admin/categories" target="_blanks">categories</a>
+		<a href="admin/items" target="_blanks">items</a>
+	</div>
+</div>

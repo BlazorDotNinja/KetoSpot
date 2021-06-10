@@ -1,0 +1,8 @@
+@page "/notification"
+@inherits BlazorNinjaComponent
+@layout UserContextLayout
+@attribute [UserContextRequired]
+
+<div class="blazor-ninja-page">
+	<MessageList Limit=10></MessageList>
+</div>
