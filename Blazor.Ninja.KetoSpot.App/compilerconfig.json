@@ -1,0 +1,10 @@
+[
+  {
+    "outputFile": "wwwroot/css/kickstart.css",
+    "inputFile": "wwwroot/css/kickstart.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/blazor-ninja.css",
+    "inputFile": "wwwroot/css/blazor-ninja.scss"
+  }
+]

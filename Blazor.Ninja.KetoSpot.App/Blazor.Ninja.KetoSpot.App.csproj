@@ -1,0 +1,43 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+	<PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
+		<RootNamespace>Blazor.Ninja.KetoSpot.App</RootNamespace>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <Compile Remove="Vm\**" />
+	  <Content Remove="Vm\**" />
+	  <EmbeddedResource Remove="Vm\**" />
+	  <None Remove="Vm\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Remove="GeoFeatureGroupController.cs" />
+		<Compile Remove="OwlPhotoController.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Blazor.Ninja.Sdk.AspNetCore" Version="1.11.7" />
+		<PackageReference Include="Syncfusion.Blazor" Version="19.1.0.54" />
+	</ItemGroup>
+
+
+	<ItemGroup>
+		<ProjectReference Include="..\Blazor.Ninja.KetoSpot.Common\Blazor.Ninja.KetoSpot.Common.csproj" />
+	</ItemGroup>
+
+
+	<ItemGroup>
+		<Content Update="wwwroot\css\kickstart.css">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>kickstart.scss</DependentUpon>
+		</Content>
+		<Content Update="wwwroot\css\kickstart.scss">
+			<Generator>SassTranspiler</Generator>
+			<LastGenOutput>kickstart.css</LastGenOutput>
+		</Content>
+	</ItemGroup>
+
+</Project>

@@ -1,0 +1,69 @@
+@page "/"
+@namespace Blazor.Ninja.KetoSpot.ServerApp.Pages
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<title>Keto Spot</title>
+	<base href="~/" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="_content/Blazor.Ninja.Sdk.AspNetCore/css/blazor-ninja.css" />
+	<link rel="stylesheet" href="_content/Blazor.Ninja.KetoSpot.App/css/kickstart.css?v=0.1" />
+	<link rel="stylesheet" href="_content/Syncfusion.Blazor/styles/bootstrap4.css" />
+</head>
+<body>
+	<script type="text/javascript">
+		function setTheme(cssClass) {
+			const body = document.body;
+
+			body.classList = [];
+			if (cssClass) body.classList.add(cssClass);
+
+			if (cssClass === "dark") {
+				const head = document.getElementsByTagName("HEAD")[0];
+
+				const link = document.createElement("link");
+
+				link.rel = "stylesheet";
+
+				link.type = "text/css";
+				link.href = "_content/Syncfusion.Blazor/styles/bootstrap-dark.css";
+
+				head.appendChild(link);
+			}
+		}
+
+		var theme = window.localStorage.getItem("Theme");
+		if (theme) {
+			theme = theme.replace(/"/g, '');
+			setTheme(theme);
+		}
+		setTheme(theme);
+	</script>
+
+	<component type="typeof(App)" render-mode="Server" />
+
+	<script src="_framework/blazor.server.js"></script>
+
+	<script src="_content/BlazorInputFile/inputfile.js"></script>
+	<script src="_content/Blazor.Ninja.Sdk.AspNetCore/js/blazor.extensions.storage.js"></script>
+
+	<script src="_content/Blazor.Ninja.Sdk.AspNetCore/js/blazor.ninja.image.js"></script>
+	<script src="_content/Blazor.Ninja.Sdk.AspNetCore/js/blazor.ninja.imageform.js"></script>
+	<script src="_content/Blazor.Ninja.Sdk.AspNetCore/js/blazor.ninja.suggestion.js"></script>
+	<script src="_content/Blazor.Ninja.Sdk.AspNetCore/js/blazor.ninja.navigation.js"></script>
+
+	<!-- TODO Paste your Google API key below-->
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDmdJdJX_BU_p8LPZ-TxKMJouQchp_ujqw&libraries=drawing"></script>
+	<script src="_content/Blazor.Ninja.Sdk.AspNetCore/js/blazor.ninja.googlemapsform.js"></script>
+
+	<script src="_content/Blazor.Ninja.KetoSpot.App/js/site.js"></script>
+</body>
+</html>

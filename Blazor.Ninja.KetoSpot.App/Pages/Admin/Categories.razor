@@ -1,0 +1,66 @@
+@page "/admin/categories"
+@layout UserContextLayout
+@inherits BlazorNinjaComponent
+
+<div class="blazor-ninja-page">
+	@if (_categories == null)
+	{
+		<div class="blazor-ninja-flashing"></div>
+	}
+	else
+	{
+		<div class="blazor-ninja-form-container admin-categories-container">
+			<div>
+				<a href="/admin/category" class="btn btn-primary" target="_blanks">Add</a>
+			</div>
+			@foreach (var category in _categories)
+			{
+				<div>
+					<span>@category.Label</span>
+					<a href="/admin/category/@category.Id" class="btn btn-primary" target="_blanks">Edit</a>
+					<button class="btn btn-primary" @onclick="(() => DeleteAsync(category.Id))">Delete</button>
+				</div>
+
+			}
+		</div>
+	}
+</div>
+
+@code {
+	private IDataProxy<MenuItemCategory> _categoryProxy;
+	private IDataProxy<MenuItem> _itemProxy;
+
+	private List<MenuItemCategory> _categories;
+
+	protected override async Task OnInitializedAsync()
+	{
+		await base.OnInitializedAsync();
+
+		var token = await GetContextTokenAsync();
+
+		_categoryProxy = ProxyFactory.GetDataProxy<MenuItemCategory>(token);
+
+		_itemProxy = ProxyFactory.GetDataProxy<MenuItem>(token);
+
+		var page = await _categoryProxy.GetPageAsync(
+			Filter<MenuItemCategory>.Empty,
+		0,
+		int.MaxValue,
+			SortOrder<MenuItemCategory>.Empty);
+
+		_categories = page.Items;
+	}
+
+	private async Task DeleteAsync(string id)
+	{
+		await _categoryProxy.DeleteAsync(id);
+
+		_categories.RemoveAll(it => it.Id == id);
+
+		var _ = Task.Run(async () => await _itemProxy.UpdateAsync(
+			Builders<MenuItem>.Filter.Eq(it => it.MenuItemCategoryId, id),
+			Builders<MenuItem>.Update.Set(it => it.MenuItemCategoryId, null)));
+	}
+
+}
+

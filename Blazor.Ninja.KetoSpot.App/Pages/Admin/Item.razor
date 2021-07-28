@@ -1,0 +1,85 @@
+@page "/admin/item"
+@page "/admin/item/{itemId}"
+@layout UserContextLayout
+@inherits BlazorNinjaComponent
+@attribute [UserContextRequired]
+
+<div class="blazor-ninja-page">
+	@if (_initialized)
+	{
+		if (string.IsNullOrWhiteSpace(ItemId))
+		{
+			<h3>Add New Item</h3>
+		}
+		else
+		{
+			<h3>Edit Item</h3>
+		}
+		<DataForm NamespaceLabel="MenuItem"
+				  ItemId=@ItemId
+				  FieldLabels=@(new List<string> {
+			                      "MenuItemCategoryId",
+			                      "Label",
+			                      "Description",
+			                      "KCalories",
+			                      "Carbs",
+			                      "Price",
+			                      "PhotoUrl"})
+				  ReferenceValueCallback="GetReferenceValueAsync"
+				  ReferenceSearchValueChangedCallback="ReferenceSearchValueChangedAsync"
+				  Done="OnDone">
+		</DataForm>
+	}
+</div>
+
+@code {
+	private bool _initialized;
+
+	[Parameter]
+	public string ItemId { get; set; }
+
+	private List<GenericIdDataObject> _categories;
+
+	protected override async Task OnInitializedAsync()
+	{
+		await base.OnInitializedAsync();
+
+		var token = await GetContextTokenAsync();
+
+		var proxy = ProxyFactory.GetDataProxyForNamespace<GenericIdDataObject>(token, "MenuItemCategory");
+
+		var page = await proxy.GetPageAsync(Filter<GenericIdDataObject>.Empty, 0, int.MaxValue, SortOrder<GenericIdDataObject>.Empty);
+
+		_categories = page.Items;
+
+		_initialized = true;
+	}
+
+	private async Task<List<GenericIdDataObject>> ReferenceSearchValueChangedAsync(
+		string fieldLabel,
+		string value)
+	{
+		await Task.Delay(0);
+
+		if (fieldLabel == "MenuItemCategoryId") return _categories?.Where(it => it.Get<string>("Label").StartsWith(value, StringComparison.InvariantCultureIgnoreCase)).ToList();
+
+		throw new NotImplementedException();
+	}
+
+	private async Task<GenericIdDataObject> GetReferenceValueAsync(
+		string fieldLabel,
+		string id)
+	{
+		await Task.Delay(0);
+
+		if (fieldLabel == "MenuItemCategoryId") return _categories?.FirstOrDefault(it => it.Id == id);
+
+		throw new NotImplementedException();
+	}
+
+	private void OnDone(bool obj)
+	{
+		NavigationManager.NavigateTo("/admin/items");
+	}
+
+}

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using Blazor.Ninja.Client.Http;
 using Blazor.Ninja.Common.Data.System;

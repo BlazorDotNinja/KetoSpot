@@ -1,0 +1,45 @@
+@page  "/admin/category/"
+@page "/admin/category/{categoryId}"
+@layout UserContextLayout
+@inherits BlazorNinjaComponent
+
+<div class="blazor-ninja-page">
+	@if (_initialized)
+	{
+		if (string.IsNullOrWhiteSpace(CategoryId))
+		{
+			<h3>Add New Category</h3>
+		}
+		else
+		{
+			<h3>Edit Category</h3>
+		}
+		<DataForm NamespaceLabel="MenuItemCategory"
+				  ItemId=@CategoryId
+				  FieldLabels=@(new List<string> {"Label"})
+				  Done="OnDone">
+		</DataForm>
+	}
+</div>
+
+
+@code
+{
+	private bool _initialized;
+
+	[Parameter]
+	public string CategoryId { get; set; }
+
+	protected override async Task OnInitializedAsync()
+	{
+		await base.OnInitializedAsync();
+
+		_initialized = true;
+	}
+
+	private void OnDone(bool obj)
+	{
+		NavigationManager.NavigateTo("/admin/categories");
+	}
+}
+

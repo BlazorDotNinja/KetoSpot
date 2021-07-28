@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Blazor.Ninja.KickStart.Common\Blazor.Ninja.KickStart.Common.csproj" />
+    <ProjectReference Include="..\Blazor.Ninja.KetoSpot.Common\Blazor.Ninja.KetoSpot.Common.csproj" />
   </ItemGroup>
 
   <ItemGroup>

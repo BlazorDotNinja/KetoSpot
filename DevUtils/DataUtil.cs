@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using Blazor.Ninja.Common.Data;
 using Blazor.Ninja.Common.Factories;
-using Blazor.Ninja.KickStart.Common;
+using Blazor.Ninja.KetoSpot.Common;
 
 namespace DevUtils
 {
