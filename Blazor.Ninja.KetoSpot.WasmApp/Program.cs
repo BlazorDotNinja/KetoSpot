@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Blazor.Extensions.Storage;
 
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,8 +28,6 @@ namespace Blazor.Ninja.KetoSpot.WasmApp
 
 			builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
-			builder.Services.AddStorage();
-
 			var proxyFactory = new HttpProxyFactory(apiUrl, appToken);
 			builder.Services.AddSingleton<IProxyFactory>(proxyFactory);
 
@@ -38,6 +35,7 @@ namespace Blazor.Ninja.KetoSpot.WasmApp
 			{
 				Task.Run(async () => await proxyFactory.GetConfigurationProxy().GetNamespaceAsync(UserNamespace.Label)),
 				Task.Run(async () => await proxyFactory.GetConfigurationProxy().GetFeatureAsync<OnboardingFeature>()),
+				Task.Run(async () => await proxyFactory.GetConfigurationProxy().GetFeatureAsync<OneTimePasswordFeature>()),
 				Task.Run(async () => await proxyFactory.GetConfigurationProxy().GetFeatureAsync<PostboardingFeature>()),
 				Task.Run(async () => await proxyFactory.GetConfigurationProxy().GetFeatureAsync<ThemeFeature>()),
 				Task.Run(async () => await proxyFactory.GetConfigurationProxy().GetFeatureAsync<TicketFeature>())

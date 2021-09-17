@@ -29,6 +29,7 @@ namespace Blazor.Ninja.KetoSpot.ServerApp
 				Task.Run(async () => await ProxyFactory.GetConfigurationProxy().GetNamespaceAsync(UserNamespace.Label)),
 				Task.Run(async () => await ProxyFactory.GetConfigurationProxy().GetNamespaceAsync(nameof(MenuItem))),
 				Task.Run(async () => await ProxyFactory.GetConfigurationProxy().GetFeatureAsync<OnboardingFeature>()),
+				Task.Run(async () => await ProxyFactory.GetConfigurationProxy().GetFeatureAsync<OneTimePasswordFeature>()),
 				Task.Run(async () => await ProxyFactory.GetConfigurationProxy().GetFeatureAsync<PostboardingFeature>()),
 				Task.Run(async () => await ProxyFactory.GetConfigurationProxy().GetFeatureAsync<ThemeFeature>()),
 				Task.Run(async () => await ProxyFactory.GetConfigurationProxy().GetFeatureAsync<TicketFeature>())
