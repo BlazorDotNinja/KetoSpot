@@ -19,28 +19,29 @@
 	<link rel="stylesheet" href="_content/Syncfusion.Blazor/styles/bootstrap4.css" />
 </head>
 <body>
-	<script type="text/javascript">
+<script type="text/javascript">
 		function setTheme(cssClass) {
-			const body = document.body;
+			var body = document.body;
 
 			body.classList = [];
 			if (cssClass) body.classList.add(cssClass);
-
-			if (cssClass === "dark") {
-				const head = document.getElementsByTagName("HEAD")[0];
-
-				const link = document.createElement("link");
-
-				link.rel = "stylesheet";
-
-				link.type = "text/css";
-				link.href = "_content/Syncfusion.Blazor/styles/bootstrap-dark.css";
-
-				head.appendChild(link);
-			}
 		}
 
-		var theme = window.localStorage.getItem("Theme");
+		function getTheme() {
+			const cookies = decodeURIComponent(document.cookie).split(";");
+			for (let i = 0; i < cookies.length; i++) {
+				let cookie = cookies[i];
+				while (cookie.charAt(0) === " ") {
+					cookie = cookie.substring(1);
+				}
+				if (cookie.indexOf("Theme=") === 0) {
+					return cookie.substring(cookie.indexOf("=") + 1, cookie.length);
+				}
+			}
+			return "";
+		}
+
+		var theme = getTheme();
 		if (theme) {
 			theme = theme.replace(/"/g, '');
 			setTheme(theme);
@@ -51,7 +52,7 @@
 	<component type="typeof(App)" render-mode="Server" />
 
 	<script src="_framework/blazor.server.js"></script>
-	
+
 	<script src="_content/Blazor.Ninja.Sdk.AspNetCore/js/blazor.ninja.image.js"></script>
 	<script src="_content/Blazor.Ninja.Sdk.AspNetCore/js/blazor.ninja.imageform.js"></script>
 	<script src="_content/Blazor.Ninja.Sdk.AspNetCore/js/blazor.ninja.suggestion.js"></script>
