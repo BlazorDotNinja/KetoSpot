@@ -2,67 +2,78 @@
 @namespace Blazor.Ninja.KetoSpot.ServerApp.Pages
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
-	Layout = null;
+    Layout = null;
 }
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-	<meta name="apple-mobile-web-app-capable" content="yes">
-	<title>Keto Spot</title>
-	<base href="~/" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<link rel="stylesheet" href="_content/Blazor.Ninja.Sdk.AspNetCore/css/blazor-ninja.css" />
-	<link rel="stylesheet" href="_content/Blazor.Ninja.KetoSpot.App/css/kickstart.css?v=0.1" />
-	<link rel="stylesheet" href="_content/Syncfusion.Blazor/styles/bootstrap4.css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Keto Spot</title>
+    <base href="~/" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="_content/Blazor.Ninja.Sdk.AspNetCore/css/blazor-ninja.css" />
+    <link rel="stylesheet" href="_content/Blazor.Ninja.KetoSpot.App/css/app.css?v=0.1" />
 </head>
 <body>
-<script type="text/javascript">
-		function setTheme(cssClass) {
-			var body = document.body;
+    <script type="text/javascript">
+        function setTheme(cssClass) {
+            var body = document.body;
 
-			body.classList = [];
-			if (cssClass) body.classList.add(cssClass);
-		}
+            body.classList = [];
+            if (cssClass) body.classList.add(cssClass);
 
-		function getTheme() {
-			const cookies = decodeURIComponent(document.cookie).split(";");
-			for (let i = 0; i < cookies.length; i++) {
-				let cookie = cookies[i];
-				while (cookie.charAt(0) === " ") {
-					cookie = cookie.substring(1);
-				}
-				if (cookie.indexOf("Theme=") === 0) {
-					return cookie.substring(cookie.indexOf("=") + 1, cookie.length);
-				}
-			}
-			return "";
-		}
+            if (cssClass === "dark") {
+                const head = document.getElementsByTagName("HEAD")[0];
 
-		var theme = getTheme();
-		if (theme) {
-			theme = theme.replace(/"/g, '');
-			setTheme(theme);
-		}
-		setTheme(theme);
-	</script>
+                const link = document.createElement("link");
 
-	<component type="typeof(App)" render-mode="Server" />
+                link.rel = "stylesheet";
 
-	<script src="_framework/blazor.server.js"></script>
+                link.type = "text/css";
+                link.href = "_content/Syncfusion.Blazor/styles/bootstrap-dark.css";
 
-	<script src="_content/Blazor.Ninja.Sdk.AspNetCore/js/blazor.ninja.image.js"></script>
-	<script src="_content/Blazor.Ninja.Sdk.AspNetCore/js/blazor.ninja.imageform.js"></script>
-	<script src="_content/Blazor.Ninja.Sdk.AspNetCore/js/blazor.ninja.suggestion.js"></script>
-	<script src="_content/Blazor.Ninja.Sdk.AspNetCore/js/blazor.ninja.navigation.js"></script>
-	<script src="_content/Blazor.Ninja.Sdk.AspNetCore/js/blazor.ninja.cookie.js"></script>
+                head.appendChild(link);
+            }
+        }
 
-	<!-- TODO Paste your Google API key below-->
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDmdJdJX_BU_p8LPZ-TxKMJouQchp_ujqw&libraries=drawing"></script>
-	<script src="_content/Blazor.Ninja.Sdk.AspNetCore/js/blazor.ninja.googlemapsform.js"></script>
+        function getTheme() {
+            const cookies = decodeURIComponent(document.cookie).split(";");
+            for (let i = 0; i < cookies.length; i++) {
+                let cookie = cookies[i];
+                while (cookie.charAt(0) === " ") {
+                    cookie = cookie.substring(1);
+                }
+                if (cookie.indexOf("Theme=") === 0) {
+                    return cookie.substring(cookie.indexOf("=") + 1, cookie.length);
+                }
+            }
+            return "";
+        }
 
-	<script src="_content/Blazor.Ninja.KetoSpot.App/js/site.js"></script>
+        var theme = getTheme();
+        if (theme) {
+            theme = theme.replace(/"/g, '');
+            setTheme(theme);
+        }
+
+        setTheme(theme);
+
+    </script>
+
+    <component type="typeof(App)" render-mode="Server" />
+
+    <script src="_framework/blazor.server.js"></script>
+
+    <script src="_content/Blazor.Ninja.Sdk.AspNetCore/js/blazor.ninja.common.js"></script>
+    <script src="_content/Blazor.Ninja.Sdk.AspNetCore/js/blazor.ninja.image.js"></script>
+    <script src="_content/Blazor.Ninja.Sdk.AspNetCore/js/blazor.ninja.imageform.js"></script>
+    <script src="_content/Blazor.Ninja.Sdk.AspNetCore/js/blazor.ninja.suggestion.js"></script>
+    <script src="_content/Blazor.Ninja.Sdk.AspNetCore/js/blazor.ninja.navigation.js"></script>
+    <script src="_content/Blazor.Ninja.Sdk.AspNetCore/js/blazor.ninja.cookie.js"></script>
+
+    <script src="_content/Blazor.Ninja.KetoSpot.App/js/app.js"></script>
 </body>
 </html>

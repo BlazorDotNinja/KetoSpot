@@ -4,10 +4,24 @@
 
 <div class="blazor-ninja-page">
 	<h3>Need help with your password?</h3>
-	<ForgotForm Done=@OnDone></ForgotForm>
+    <ForgotPasswordForm
+        PrimaryFieldValue="@_primaryFieldValue"
+        Done=@OnDone></ForgotPasswordForm>
 </div>
 
 @code{
+
+    private string _primaryFieldValue;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        var uri = NavigationManager.ToAbsoluteUri(NavigationManager.Uri);
+        QueryHelpers.ParseQuery(uri.Query).TryGetValue("value", out var temp);
+
+        _primaryFieldValue = temp;
+    }
 
 	private void OnDone(bool wasUserInputNeeded)
 	{
