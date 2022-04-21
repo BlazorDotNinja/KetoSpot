@@ -4,8 +4,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-using Syncfusion.Blazor;
-
 namespace Blazor.Ninja.KetoSpot.ServerApp
 {
 	public class Startup
@@ -25,8 +23,6 @@ namespace Blazor.Ninja.KetoSpot.ServerApp
 			services.AddServerSideBlazor();
 
 			services.AddSingleton(Program.ProxyFactory);
-
-			services.AddSyncfusionBlazor();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

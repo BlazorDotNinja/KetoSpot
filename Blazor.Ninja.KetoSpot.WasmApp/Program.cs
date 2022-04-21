@@ -10,7 +10,6 @@ using Blazor.Ninja.Client.Http;
 using Blazor.Ninja.Common.Data.System;
 using Blazor.Ninja.Common.Factories;
 using Blazor.Ninja.Common.Meta;
-using Syncfusion.Blazor;
 
 namespace Blazor.Ninja.KetoSpot.WasmApp
 {
@@ -40,8 +39,6 @@ namespace Blazor.Ninja.KetoSpot.WasmApp
 				Task.Run(async () => await proxyFactory.GetConfigurationProxy().GetFeatureAsync<ThemeFeature>()),
 				Task.Run(async () => await proxyFactory.GetConfigurationProxy().GetFeatureAsync<TicketFeature>())
 			});
-			
-			builder.Services.AddSyncfusionBlazor();
 
 			await builder.Build().RunAsync();
 		}
