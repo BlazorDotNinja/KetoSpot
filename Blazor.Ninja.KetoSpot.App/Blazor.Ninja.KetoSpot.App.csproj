@@ -6,13 +6,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Compile Remove="Vm\**" />
-	  <Content Remove="Vm\**" />
-	  <EmbeddedResource Remove="Vm\**" />
-	  <None Remove="Vm\**" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<Compile Remove="GeoFeatureGroupController.cs" />
 		<Compile Remove="OwlPhotoController.cs" />
 	</ItemGroup>
