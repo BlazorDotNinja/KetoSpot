@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
 	<PropertyGroup>
-		<TargetFramework>net5.0</TargetFramework>
+		<TargetFramework>net6.0</TargetFramework>
 		<RootNamespace>Blazor.Ninja.KetoSpot.App</RootNamespace>
 	</PropertyGroup>
 
@@ -11,8 +11,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Blazor.Ninja.Sdk.AspNetCore" Version="1.15.1" />
-		<PackageReference Include="Syncfusion.Blazor" Version="19.3.0.44" />
+		<PackageReference Include="Blazor.Ninja.Sdk.AspNetCore" Version="1.16.0-preview.2" />
 	</ItemGroup>
 
 
