@@ -13,4 +13,8 @@
     <ProjectReference Include="..\Blazor.Ninja.KetoSpot.WasmApp\Blazor.Ninja.KetoSpot.WasmApp.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Properties\PublishProfiles\" />
+  </ItemGroup>
+
 </Project>
